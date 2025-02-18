@@ -2,6 +2,7 @@ import hashlib
 import string
 import multiprocessing
 from itertools import product
+import time
 
 all_chars = string.ascii_letters + string.digits + "!@#$%^&*()-_=+[]{}|\\:;\"'<>,.?/"
 
@@ -24,6 +25,7 @@ def crack(hashed_pw, length):
     num_workers = multiprocessing.cpu_count()
     pool = multiprocessing.Pool(num_workers)
 
+    print(f"Cracking password with {num_workers} workers...")
     results = pool.starmap(crack_worker, [(hashed_pw, length, i, num_workers) for i in range(num_workers)])
 
     pool.close()
